@@ -31,34 +31,6 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => io.observe(el));
 
-// ===================== HERO 3D TILT =====================
-const heroStage = document.getElementById('heroStage');
-const heroMedia = document.querySelector('.hero-media');
-if (heroStage && heroMedia) {
-  heroMedia.addEventListener('mousemove', (e) => {
-    const rect = heroMedia.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    heroStage.style.transform = `rotateY(${x * 14}deg) rotateX(${-y * 14}deg)`;
-  });
-  heroMedia.addEventListener('mouseleave', () => {
-    heroStage.style.transform = 'rotateY(0deg) rotateX(0deg)';
-  });
-}
-
-// ===================== CARD TILT (specialties) =====================
-document.querySelectorAll('.specialty-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(900px) rotateY(0) rotateX(0) translateY(0)';
-  });
-});
-
 // ===================== ABOUT PHOTO TILT =====================
 const aboutWrap = document.querySelector('.about-photo-wrap');
 const aboutMedia = document.querySelector('.about-media');
@@ -105,15 +77,12 @@ window.addEventListener('mousemove', (e) => {
   });
 }, { passive: true });
 
-// ===================== SCROLL PARALLAX (blobs + hero cards) =====================
-const heroCardFloats = document.querySelectorAll('.hero-card-float');
+// ===================== SCROLL PARALLAX (background blobs) =====================
 let parallaxTicking = false;
 function applyScrollParallax() {
   const sy = window.scrollY;
   const blobOffset = Math.min(sy * 0.06, 80);
   meshBlobs.forEach(blob => blob.style.setProperty('--sy', `${blobOffset}px`));
-  const cardOffset = Math.min(sy * 0.03, 24);
-  heroCardFloats.forEach(card => card.style.setProperty('--sy', `${-cardOffset}px`));
   parallaxTicking = false;
 }
 window.addEventListener('scroll', () => {
@@ -344,84 +313,79 @@ if (canvas) {
   resize(); initParticles(); tick();
 }
 
-// ===================== 3D COVERFLOW =====================
-const cfTrack = document.getElementById('cfTrack');
-if (cfTrack) {
-  const cfItems = Array.from(cfTrack.querySelectorAll('.cf-item'));
-  const cfList = cfItems.map(el => ({ full: el.dataset.full, alt: el.dataset.alt }));
-  let cfActive = 0;
-  let cfTimer;
+// ===================== TUNEL 3D DE SCROLL =====================
+const tunnelViewport = document.getElementById('tunnelViewport');
+const tunnelWorld = document.getElementById('tunnelWorld');
+const tunnelSpacer = document.getElementById('tunnelSpacer');
+const scrollCue = document.getElementById('scrollCue');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function cfLayout() {
-    const n = cfItems.length;
-    cfItems.forEach((el, i) => {
-      let diff = i - cfActive;
-      if (diff > n / 2) diff -= n;
-      if (diff < -n / 2) diff += n;
-      const abs = Math.abs(diff);
-      const tx = diff * 132;
-      const tz = -abs * 150;
-      const rot = diff * -34;
-      const scale = Math.max(1 - abs * 0.13, 0.55);
-      const opacity = abs > 3 ? 0 : Math.max(1 - abs * 0.3, 0);
-      el.style.transform = `translate3d(${tx}px, 0, ${tz}px) rotateY(${rot}deg) scale(${scale})`;
-      el.style.opacity = opacity;
-      el.style.zIndex = 100 - abs;
-      el.style.pointerEvents = abs > 3 ? 'none' : 'auto';
-      el.classList.toggle('is-active', diff === 0);
-    });
-  }
+if (tunnelViewport && tunnelWorld && tunnelSpacer && !reduceMotion) {
+  const Z_SCALE = 0.5;
+  const FADE_IN_START = -900, FADE_IN_END = -350;
+  const FADE_OUT_START = -60, FADE_OUT_END = 260;
 
-  function cfGoTo(i) {
-    const n = cfItems.length;
-    cfActive = (i + n) % n;
-    cfLayout();
-  }
+  const tunnelNodes = Array.from(tunnelWorld.querySelectorAll('.tunnel-node')).map(el => ({
+    el,
+    baseZ: parseFloat(el.dataset.z) || 0,
+    x: parseFloat(el.dataset.x) || 0,
+    y: parseFloat(el.dataset.y) || 0,
+    ry: parseFloat(el.dataset.ry) || 0,
+  }));
 
-  function cfRestartAutoplay() {
-    clearInterval(cfTimer);
-    cfTimer = setInterval(() => cfGoTo(cfActive + 1), 3600);
-  }
+  const tunnelPhotoList = tunnelNodes
+    .filter(n => n.el.classList.contains('tunnel-node-photo'))
+    .map(n => ({ full: n.el.dataset.full, alt: n.el.dataset.alt }));
 
-  cfItems.forEach((el, i) => {
-    el.addEventListener('click', () => {
-      if (i === cfActive) {
-        openLightboxFromList(cfList, i);
-      } else {
-        cfGoTo(i);
-        cfRestartAutoplay();
-      }
-    });
-  });
-  document.getElementById('cfPrev')?.addEventListener('click', () => { cfGoTo(cfActive - 1); cfRestartAutoplay(); });
-  document.getElementById('cfNext')?.addEventListener('click', () => { cfGoTo(cfActive + 1); cfRestartAutoplay(); });
-
-  // touch / drag swipe
-  let dragStartX = null;
-  cfTrack.addEventListener('pointerdown', (e) => { dragStartX = e.clientX; });
-  cfTrack.addEventListener('pointerup', (e) => {
-    if (dragStartX === null) return;
-    const delta = e.clientX - dragStartX;
-    if (delta > 40) { cfGoTo(cfActive - 1); cfRestartAutoplay(); }
-    else if (delta < -40) { cfGoTo(cfActive + 1); cfRestartAutoplay(); }
-    dragStartX = null;
+  tunnelNodes.forEach(n => {
+    if (n.el.classList.contains('tunnel-node-photo')) {
+      n.el.addEventListener('click', () => {
+        const idx = tunnelPhotoList.findIndex(p => p.full === n.el.dataset.full);
+        openLightboxFromList(tunnelPhotoList, idx);
+      });
+    }
   });
 
-  const coverflowEl = document.getElementById('coverflow');
-  coverflowEl?.addEventListener('mouseenter', () => clearInterval(cfTimer));
-  coverflowEl?.addEventListener('mouseleave', cfRestartAutoplay);
+  function nodeOpacity(z) {
+    if (z <= FADE_IN_START || z >= FADE_OUT_END) return 0;
+    if (z < FADE_IN_END) return (z - FADE_IN_START) / (FADE_IN_END - FADE_IN_START);
+    if (z <= FADE_OUT_START) return 1;
+    return 1 - (z - FADE_OUT_START) / (FADE_OUT_END - FADE_OUT_START);
+  }
 
-  cfLayout();
-  cfRestartAutoplay();
+  let tunnelTicking = false;
+  function renderTunnel() {
+    const tunnelScrollHeight = tunnelSpacer.offsetHeight;
+    const progress = Math.min(window.scrollY, tunnelScrollHeight);
+    tunnelNodes.forEach(n => {
+      const z = (progress - n.baseZ) * Z_SCALE;
+      const opacity = nodeOpacity(z);
+      n.el.style.transform = `translate3d(calc(-50% + ${n.x}px), calc(-50% + ${n.y}px), ${z}px) rotateY(${n.ry}deg)`;
+      n.el.style.opacity = opacity;
+      n.el.style.pointerEvents = opacity > 0.15 ? 'auto' : 'none';
+    });
+    tunnelViewport.classList.toggle('exited', window.scrollY >= tunnelScrollHeight);
+    scrollCue?.classList.toggle('hide', window.scrollY > 200);
+    tunnelTicking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!tunnelTicking) {
+      requestAnimationFrame(renderTunnel);
+      tunnelTicking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('resize', renderTunnel);
+  renderTunnel();
 }
 
 // ===================== ACTIVE NAV ON SCROLL =====================
-const sections = document.querySelectorAll('section[id]');
+const sections = document.querySelectorAll('section[id], .scroll-marker[id]');
 const navLinks = document.querySelectorAll('.main-nav > a');
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(sec => {
-    const top = sec.offsetTop - 140;
+    const top = sec.getBoundingClientRect().top + window.scrollY - 140;
     if (window.scrollY >= top) current = sec.id;
   });
   navLinks.forEach(link => {

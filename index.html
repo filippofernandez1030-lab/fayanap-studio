@@ -44,136 +44,97 @@
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero" id="inicio">
-  <canvas id="particles" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
-  <div class="container hero-inner">
-    <div class="hero-copy">
-      <p class="hero-script">Capturamos</p>
-      <h1>momentos que<br>se sienten <span class="grad-text">vivos.</span></h1>
-      <p class="hero-desc">Fotografía profesional deportiva, corporativa, gastronómica y de eventos en Santo Domingo — historias reales, contadas con color y energía.</p>
-      <div class="hero-actions">
-        <a href="#portafolio" class="btn btn-primary btn-pill">Ver portafolio
+<!-- TUNEL 3D -->
+<div class="tunnel-viewport" id="tunnelViewport">
+  <canvas id="particles"></canvas>
+
+  <div class="tunnel-world" id="tunnelWorld">
+
+    <div class="tunnel-node tunnel-node-text" data-z="300" data-x="0" data-y="0" data-ry="0">
+      <div class="tunnel-node-inner" style="--d:0">
+        <p class="hero-script">Capturamos</p>
+        <h1>momentos que<br>se sienten <span class="grad-text">vivos.</span></h1>
+        <p class="hero-desc">Fotografía profesional deportiva, corporativa, gastronómica y de eventos en Santo Domingo — historias reales, contadas con color y energía.</p>
+        <div class="hero-actions">
+          <a href="#portafolio" class="btn btn-primary btn-pill">Ver portafolio
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#contacto" class="btn btn-outline btn-pill">Conversemos
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>36+</strong><span>Sesiones reales</span></div>
+          <div><strong>6</strong><span>Especialidades</span></div>
+          <div><strong>100%</strong><span>Momentos auténticos</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tunnel-node tunnel-node-card" data-z="2100" data-x="-260" data-y="-40" data-ry="16">
+      <div class="tunnel-node-inner" style="--d:1"><img src="images/thumb/p32.jpg" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar."><span class="tunnel-label">Retratos</span></div>
+    </div>
+    <div class="tunnel-node tunnel-node-card" data-z="2250" data-x="260" data-y="30" data-ry="-16">
+      <div class="tunnel-node-inner" style="--d:3"><img src="images/thumb/p17.jpg" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras."><span class="tunnel-label">Deportivo</span></div>
+    </div>
+    <div class="tunnel-node tunnel-node-card" data-z="2180" data-x="0" data-y="-170" data-ry="0">
+      <div class="tunnel-node-inner" style="--d:2"><img src="images/thumb/p22.jpg" alt="Mujer con blazer celeste sonriendo junto al logo de un set de entrevistas."><span class="tunnel-label">Corporativo</span></div>
+    </div>
+
+    <div class="tunnel-node tunnel-node-card" data-z="3400" data-x="-250" data-y="60" data-ry="16">
+      <div class="tunnel-node-inner" style="--d:4"><img src="images/thumb/p12.jpg" alt="Hamburguesa gourmet apilada con carne desmenuzada y queso derretido."><span class="tunnel-label">Gastronómica</span></div>
+    </div>
+    <div class="tunnel-node tunnel-node-card" data-z="3550" data-x="270" data-y="-50" data-ry="-16">
+      <div class="tunnel-node-inner" style="--d:0"><img src="images/thumb/p39.jpg" alt="Mujer celebrando con los brazos en alto entre una multitud en un evento."><span class="tunnel-label">Eventos</span></div>
+    </div>
+    <div class="tunnel-node tunnel-node-card" data-z="3480" data-x="0" data-y="170" data-ry="0">
+      <div class="tunnel-node-inner" style="--d:1"><img src="images/thumb/p30.jpg" alt="Bebé sonriente sentada dentro de una piscina inflable rodeada de globos de colores."><span class="tunnel-label">Familia</span></div>
+    </div>
+
+    <div class="tunnel-node tunnel-node-photo" data-z="4600" data-x="-320" data-y="-80" data-ry="18" data-full="images/full/p1.jpg" data-alt="Piloto con casco conduciendo un kart de carreras junto a la costa con palmeras al fondo.">
+      <div class="tunnel-node-inner" style="--d:2"><img src="images/thumb/p1.jpg" alt="Piloto con casco conduciendo un kart de carreras junto a la costa con palmeras al fondo."></div>
+    </div>
+    <div class="tunnel-node tunnel-node-photo" data-z="4800" data-x="300" data-y="100" data-ry="-18" data-full="images/full/p24.jpg" data-alt="Pareja bailando abrazada bajo luces cálidas en una fiesta nocturna.">
+      <div class="tunnel-node-inner" style="--d:3"><img src="images/thumb/p24.jpg" alt="Pareja bailando abrazada bajo luces cálidas en una fiesta nocturna."></div>
+    </div>
+    <div class="tunnel-node tunnel-node-photo" data-z="5000" data-x="-80" data-y="180" data-ry="6" data-full="images/full/p9.jpg" data-alt="Primer plano de una hamburguesa doble con queso, tocino, lechuga y tomate.">
+      <div class="tunnel-node-inner" style="--d:4"><img src="images/thumb/p9.jpg" alt="Primer plano de una hamburguesa doble con queso, tocino, lechuga y tomate."></div>
+    </div>
+    <div class="tunnel-node tunnel-node-photo" data-z="5200" data-x="200" data-y="-160" data-ry="-10" data-full="images/full/p35.jpg" data-alt="Piloto con casco haciendo una seña de rock sentado en un kart de carreras.">
+      <div class="tunnel-node-inner" style="--d:0"><img src="images/thumb/p35.jpg" alt="Piloto con casco haciendo una seña de rock sentado en un kart de carreras."></div>
+    </div>
+
+    <div class="tunnel-node tunnel-node-photo" data-z="5800" data-x="280" data-y="-100" data-ry="-18" data-full="images/full/p20.jpg" data-alt="Hombre con barba canosa y camisa blanca posando pensativo en un set de televisión.">
+      <div class="tunnel-node-inner" style="--d:1"><img src="images/thumb/p20.jpg" alt="Hombre con barba canosa y camisa blanca posando pensativo en un set de televisión."></div>
+    </div>
+    <div class="tunnel-node tunnel-node-photo" data-z="6000" data-x="-300" data-y="60" data-ry="18" data-full="images/full/p26.jpg" data-alt="Grupo de aficionados animando con pompones y tambor durante un evento deportivo al aire libre.">
+      <div class="tunnel-node-inner" style="--d:2"><img src="images/thumb/p26.jpg" alt="Grupo de aficionados animando con pompones y tambor durante un evento deportivo al aire libre."></div>
+    </div>
+    <div class="tunnel-node tunnel-node-photo" data-z="6200" data-x="60" data-y="-190" data-ry="-6" data-full="images/full/p33.jpg" data-alt="Mujer con camisa blanca y jeans posando de pie junto a un auto con el mar de fondo.">
+      <div class="tunnel-node-inner" style="--d:3"><img src="images/thumb/p33.jpg" alt="Mujer con camisa blanca y jeans posando de pie junto a un auto con el mar de fondo."></div>
+    </div>
+    <div class="tunnel-node tunnel-node-photo" data-z="6400" data-x="-100" data-y="170" data-ry="8" data-full="images/full/p40.jpg" data-alt="Dos mujeres y un hombre tomándose una selfie sonriendo en una fiesta nocturna.">
+      <div class="tunnel-node-inner" style="--d:4"><img src="images/thumb/p40.jpg" alt="Dos mujeres y un hombre tomándose una selfie sonriendo en una fiesta nocturna."></div>
+    </div>
+
+    <div class="tunnel-node tunnel-node-text" data-z="7500" data-x="0" data-y="0" data-ry="0">
+      <div class="tunnel-node-inner" style="--d:0">
+        <p class="eyebrow center">36+ fotos reales</p>
+        <h2 class="section-title center">Descubre <span class="grad-text">todo el trabajo</span></h2>
+        <a href="#portafolio" class="btn btn-primary btn-pill" style="margin-top:26px">Ver portafolio completo
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <a href="#contacto" class="btn btn-outline btn-pill">Conversemos
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg>
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div><strong>36+</strong><span>Sesiones reales</span></div>
-        <div><strong>6</strong><span>Especialidades</span></div>
-        <div><strong>100%</strong><span>Momentos auténticos</span></div>
       </div>
     </div>
 
-    <div class="hero-media">
-      <div class="hero-ring"></div>
-      <div class="hero-idle" id="heroIdle">
-        <div class="hero-stage" id="heroStage">
-          <div class="hero-photo-main">
-            <img src="images/full/p34.jpg" width="1280" height="1920" alt="Piloto celebrando con champán junto a su equipo sobre el podio de una carrera nocturna.">
-          </div>
-          <div class="hero-card-float c1" style="--r:-6deg">
-            <img src="images/full/p17.jpg" width="1920" height="1280" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras.">
-          </div>
-          <div class="hero-card-float c2" style="--r:8deg">
-            <img src="images/full/p32.jpg" width="1280" height="1920" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar.">
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-  <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
-</section>
 
-<!-- MURO DE FOTOS 3D -->
-<section class="photo-wall" aria-hidden="true">
-  <div class="wall-row">
-    <div class="wall-track">
-      <img src="images/thumb/p1.jpg" alt="" loading="lazy"><img src="images/thumb/p3.jpg" alt="" loading="lazy"><img src="images/thumb/p9.jpg" alt="" loading="lazy"><img src="images/thumb/p24.jpg" alt="" loading="lazy"><img src="images/thumb/p29.jpg" alt="" loading="lazy"><img src="images/thumb/p35.jpg" alt="" loading="lazy"><img src="images/thumb/p16.jpg" alt="" loading="lazy"><img src="images/thumb/p20.jpg" alt="" loading="lazy">
-      <img src="images/thumb/p1.jpg" alt="" loading="lazy"><img src="images/thumb/p3.jpg" alt="" loading="lazy"><img src="images/thumb/p9.jpg" alt="" loading="lazy"><img src="images/thumb/p24.jpg" alt="" loading="lazy"><img src="images/thumb/p29.jpg" alt="" loading="lazy"><img src="images/thumb/p35.jpg" alt="" loading="lazy"><img src="images/thumb/p16.jpg" alt="" loading="lazy"><img src="images/thumb/p20.jpg" alt="" loading="lazy">
-    </div>
-  </div>
-  <div class="wall-row wall-row-alt">
-    <div class="wall-track wall-track-reverse">
-      <img src="images/thumb/p5.jpg" alt="" loading="lazy"><img src="images/thumb/p11.jpg" alt="" loading="lazy"><img src="images/thumb/p18.jpg" alt="" loading="lazy"><img src="images/thumb/p26.jpg" alt="" loading="lazy"><img src="images/thumb/p33.jpg" alt="" loading="lazy"><img src="images/thumb/p36.jpg" alt="" loading="lazy"><img src="images/thumb/p6.jpg" alt="" loading="lazy"><img src="images/thumb/p31.jpg" alt="" loading="lazy">
-      <img src="images/thumb/p5.jpg" alt="" loading="lazy"><img src="images/thumb/p11.jpg" alt="" loading="lazy"><img src="images/thumb/p18.jpg" alt="" loading="lazy"><img src="images/thumb/p26.jpg" alt="" loading="lazy"><img src="images/thumb/p33.jpg" alt="" loading="lazy"><img src="images/thumb/p36.jpg" alt="" loading="lazy"><img src="images/thumb/p6.jpg" alt="" loading="lazy"><img src="images/thumb/p31.jpg" alt="" loading="lazy">
-    </div>
-  </div>
-</section>
-
-<!-- ESPECIALIDADES -->
-<section class="specialties" id="servicios">
-  <div class="container">
-    <p class="eyebrow center">Mis especialidades</p>
-    <h2 class="section-title center">Cada historia merece <span class="grad-text">su estilo</span></h2>
-
-    <div class="specialty-grid">
-
-      <article class="specialty-card reveal reveal-3d">
-        <div class="specialty-glow-img"><img src="images/thumb/p32.jpg" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar."></div>
-        <div class="specialty-icon" style="--i:0">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
-        </div>
-        <span class="specialty-num">01</span>
-        <h3>Retratos</h3>
-        <p>Sesiones personales que capturan tu esencia con luz y actitud.</p>
-      </article>
-
-      <article class="specialty-card reveal reveal-3d">
-        <div class="specialty-glow-img"><img src="images/thumb/p17.jpg" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras."></div>
-        <div class="specialty-icon" style="--i:1">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
-        </div>
-        <span class="specialty-num">02</span>
-        <h3>Deportivo</h3>
-        <p>Adrenalina, velocidad y acción congeladas en el instante perfecto.</p>
-      </article>
-
-      <article class="specialty-card reveal reveal-3d">
-        <div class="specialty-glow-img"><img src="images/thumb/p22.jpg" alt="Mujer con blazer celeste sonriendo junto al logo de un set de entrevistas."></div>
-        <div class="specialty-icon" style="--i:2">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        </div>
-        <span class="specialty-num">03</span>
-        <h3>Corporativo</h3>
-        <p>Cobertura profesional de TV, radio, podcasts y eventos de empresa.</p>
-      </article>
-
-      <article class="specialty-card reveal reveal-3d">
-        <div class="specialty-glow-img"><img src="images/thumb/p12.jpg" alt="Hamburguesa gourmet apilada con carne desmenuzada y queso derretido."></div>
-        <div class="specialty-icon" style="--i:3">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1 1 2 2 2s2-1 2-2V2M5 11v11M19 2c-2 1-3 3-3 5v4c0 1 1 2 2 2h1v9"/></svg>
-        </div>
-        <span class="specialty-num">04</span>
-        <h3>Gastronómica</h3>
-        <p>Platos que dan hambre con solo mirarlos, listos para tu menú o redes.</p>
-      </article>
-
-      <article class="specialty-card reveal reveal-3d">
-        <div class="specialty-glow-img"><img src="images/thumb/p39.jpg" alt="Mujer celebrando con los brazos en alto entre una multitud en un evento."></div>
-        <div class="specialty-icon" style="--i:4">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5 5 0 0 0-7.1 0L12 6.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-9.3a5 5 0 0 0 0-7.1z"/></svg>
-        </div>
-        <span class="specialty-num">05</span>
-        <h3>Eventos</h3>
-        <p>Fiestas, celebraciones y encuentros capturados con energía real.</p>
-      </article>
-
-      <article class="specialty-card reveal reveal-3d">
-        <div class="specialty-glow-img"><img src="images/thumb/p30.jpg" alt="Bebé sonriente sentada dentro de una piscina inflable rodeada de globos de colores."></div>
-        <div class="specialty-icon" style="--i:5">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16c0-2 2-3 4-3s3 1 4 1 2-1 4-1 4 1 4 3"/><rect x="4" y="16" width="16" height="6" rx="1"/><circle cx="12" cy="7" r="3"/></svg>
-        </div>
-        <span class="specialty-num">06</span>
-        <h3>Familia</h3>
-        <p>Ternura y risas genuinas en cada sesión con los más pequeños.</p>
-      </article>
-
-    </div>
-  </div>
-</section>
+  <div class="scroll-cue" id="scrollCue"><span>SCROLL</span><span class="line"></span></div>
+</div>
+<div class="tunnel-spacer" id="tunnelSpacer">
+  <span id="inicio" class="scroll-marker" style="top:0"></span>
+  <span id="servicios" class="scroll-marker" style="top:2000px"></span>
+</div>
 
 <!-- GALERÍA / PORTAFOLIO -->
 <section class="gallery" id="portafolio">
@@ -181,21 +142,6 @@
     <p class="eyebrow center">Portafolio</p>
     <h2 class="section-title center">Mi trabajo habla <span class="grad-text">por sí mismo</span></h2>
     <p class="gallery-intro center">Una selección real de mis sesiones: deportivas, corporativas, gastronómicas, eventos, retratos y familia.</p>
-
-    <div class="coverflow reveal" id="coverflow">
-      <button class="cf-arrow cf-prev" id="cfPrev" aria-label="Anterior">‹</button>
-      <div class="cf-track" id="cfTrack">
-        <div class="cf-item" data-full="images/full/p34.jpg" data-alt="Piloto celebrando con champán junto a su equipo sobre el podio de una carrera nocturna."><img src="images/thumb/p34.jpg" alt="Piloto celebrando con champán junto a su equipo sobre el podio de una carrera nocturna." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p17.jpg" data-alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras."><img src="images/thumb/p17.jpg" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p32.jpg" data-alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar."><img src="images/thumb/p32.jpg" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p24.jpg" data-alt="Pareja bailando abrazada bajo luces cálidas en una fiesta nocturna."><img src="images/thumb/p24.jpg" alt="Pareja bailando abrazada bajo luces cálidas en una fiesta nocturna." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p9.jpg" data-alt="Primer plano de una hamburguesa doble con queso, tocino, lechuga y tomate."><img src="images/thumb/p9.jpg" alt="Primer plano de una hamburguesa doble con queso, tocino, lechuga y tomate." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p22.jpg" data-alt="Mujer con blazer celeste sonriendo junto al logo de un set de entrevistas."><img src="images/thumb/p22.jpg" alt="Mujer con blazer celeste sonriendo junto al logo de un set de entrevistas." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p30.jpg" data-alt="Bebé sonriente sentada dentro de una piscina inflable rodeada de globos de colores."><img src="images/thumb/p30.jpg" alt="Bebé sonriente sentada dentro de una piscina inflable rodeada de globos de colores." loading="lazy"></div>
-        <div class="cf-item" data-full="images/full/p40.jpg" data-alt="Dos mujeres y un hombre tomándose una selfie sonriendo en una fiesta nocturna."><img src="images/thumb/p40.jpg" alt="Dos mujeres y un hombre tomándose una selfie sonriendo en una fiesta nocturna." loading="lazy"></div>
-      </div>
-      <button class="cf-arrow cf-next" id="cfNext" aria-label="Siguiente">›</button>
-    </div>
 
     <div class="gallery-filters reveal">
       <button class="filter-btn active" data-filter="all">Todos</button>
