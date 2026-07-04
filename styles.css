@@ -67,10 +67,21 @@ button { font: inherit; cursor: pointer; }
 .mesh-bg span:nth-child(4){ width: 340px; height: 340px; background: var(--orange); bottom: 10%; right: 15%; animation-delay: -3s; opacity: .35;}
 
 @keyframes float-blob {
-  0%, 100% { transform: translate(calc(var(--px,0px)), calc(var(--py,0px))) scale(1); }
-  33% { transform: translate(calc(40px + var(--px,0px)), calc(-30px + var(--py,0px))) scale(1.12); }
-  66% { transform: translate(calc(-30px + var(--px,0px)), calc(20px + var(--py,0px))) scale(.92); }
+  0%, 100% { transform: translate(calc(var(--px,0px)), calc(var(--py,0px) + var(--sy,0px))) scale(1); }
+  33% { transform: translate(calc(40px + var(--px,0px)), calc(-30px + var(--py,0px) + var(--sy,0px))) scale(1.12); }
+  66% { transform: translate(calc(-30px + var(--px,0px)), calc(20px + var(--py,0px) + var(--sy,0px))) scale(.92); }
 }
+
+.cursor-glow {
+  position: fixed; top: 0; left: 0; width: 600px; height: 600px; z-index: 2;
+  pointer-events: none; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, rgba(255,255,255,.07), rgba(184,59,255,.05) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: opacity .6s var(--ease);
+  mix-blend-mode: screen;
+}
+.cursor-glow.active { opacity: 1; }
+@media (max-width: 860px), (hover: none) { .cursor-glow { display: none; } }
 
 section { position: relative; z-index: 1; }
 
@@ -181,6 +192,14 @@ section { position: relative; z-index: 1; }
 .hero-stats div span { font-size: .78rem; color: var(--ink-mute); letter-spacing: .04em; }
 
 .hero-media { position: relative; perspective: 1400px; }
+.hero-idle {
+  transform-style: preserve-3d;
+  animation: hero-idle-float 9s ease-in-out infinite;
+}
+@keyframes hero-idle-float {
+  0%, 100% { transform: translateY(0) rotateZ(0deg); }
+  50% { transform: translateY(-14px) rotateZ(.6deg); }
+}
 .hero-stage {
   position: relative; transform-style: preserve-3d;
   transition: transform .15s ease-out;
@@ -199,7 +218,10 @@ section { position: relative; z-index: 1; }
 .hero-card-float.c1 { width: 34%; bottom: -8%; left: -12%; transform: translateZ(90px) rotate(-6deg); animation-delay: -1s; }
 .hero-card-float.c2 { width: 30%; top: -9%; right: -10%; transform: translateZ(70px) rotate(8deg); animation-delay: -3s; }
 .hero-card-float img { aspect-ratio: 1/1; object-fit: cover; }
-@keyframes bob { 0%,100%{ transform: translateY(0) translateZ(80px) rotate(var(--r,0)); } 50%{ transform: translateY(-16px) translateZ(80px) rotate(var(--r,0)); } }
+@keyframes bob {
+  0%,100%{ transform: translateY(var(--sy,0px)) translateZ(80px) rotate(var(--r,0)); }
+  50%{ transform: translateY(calc(-16px + var(--sy,0px))) translateZ(80px) rotate(var(--r,0)); }
+}
 
 .hero-ring {
   position: absolute; inset: -6%; border: 1px dashed rgba(255,255,255,.14); border-radius: 50%;
@@ -214,6 +236,33 @@ section { position: relative; z-index: 1; }
 }
 .scroll-cue .line { width: 1px; height: 34px; background: linear-gradient(var(--ink-mute), transparent); animation: pulse-line 1.8s ease-in-out infinite; }
 @keyframes pulse-line { 0%,100%{ opacity: .3; } 50%{ opacity: 1; } }
+
+/* ============ PHOTO WALL (3D infinite marquee) ============ */
+.photo-wall {
+  padding: 36px 0 46px; overflow: hidden; perspective: 900px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.wall-row { overflow: hidden; transform: rotateX(10deg) rotateZ(-1.2deg); }
+.wall-row-alt { margin-top: 16px; transform: rotateX(-10deg) rotateZ(1.2deg); }
+.wall-track {
+  display: flex; gap: 16px; width: max-content;
+  animation: wall-scroll 46s linear infinite;
+}
+.wall-track-reverse { animation-name: wall-scroll-reverse; animation-duration: 60s; }
+.wall-track img {
+  height: 130px; width: auto; border-radius: 12px; border: 1px solid var(--line);
+  filter: brightness(.72) saturate(1.05);
+  transition: filter .4s var(--ease), transform .4s var(--ease);
+}
+.wall-track img:hover { filter: brightness(1.05) saturate(1.25); transform: scale(1.07) translateZ(30px); }
+.photo-wall:hover .wall-track { animation-play-state: paused; }
+@keyframes wall-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes wall-scroll-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@media (max-width: 700px) {
+  .wall-track img { height: 84px; }
+  .wall-row-alt { margin-top: 10px; }
+}
 
 /* ============ SPECIALTIES ============ */
 .specialties { padding: 140px 0 100px; }
@@ -242,6 +291,12 @@ section { position: relative; z-index: 1; }
   position: absolute; top: 24px; right: 24px; width: 40px; height: 40px; border-radius: 12px;
   display: grid; place-items: center; background: rgba(255,255,255,.08); color: #fff;
   backdrop-filter: blur(6px); border: 1px solid var(--line);
+  animation: icon-idle 5s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.7s);
+}
+@keyframes icon-idle {
+  0%, 100% { transform: perspective(400px) rotateY(0deg) translateY(0); }
+  50% { transform: perspective(400px) rotateY(180deg) translateY(-3px); }
 }
 .specialty-num { font-size: .78rem; color: var(--ink-mute); font-weight: 700; letter-spacing: .1em; }
 .specialty-card h3 { margin: 10px 0 8px; font-size: 1.18rem; letter-spacing: .01em; }
@@ -376,12 +431,16 @@ section { position: relative; z-index: 1; }
 /* ============ TESTIMONIALS ============ */
 .testimonials { padding: 100px 0 130px; }
 .testimonial-slider { display: flex; align-items: center; gap: 24px; margin-top: 50px; }
-.testimonial-track { flex: 1; display: flex; overflow: hidden; }
+.testimonial-track { flex: 1; position: relative; height: 340px; perspective: 1600px; }
 .testimonial-card {
-  min-width: 100%; padding: 46px; border-radius: var(--radius);
+  position: absolute; top: 0; left: 50%; width: min(560px, 100%);
+  padding: 46px; border-radius: var(--radius);
   background: linear-gradient(160deg, var(--surface), var(--surface-2)); border: 1px solid var(--line);
-  text-align: center; transition: opacity .4s;
+  text-align: center; box-shadow: var(--shadow-md);
+  transition: transform .6s var(--ease), opacity .6s var(--ease), box-shadow .5s;
+  will-change: transform, opacity;
 }
+.testimonial-card.is-active { box-shadow: 0 30px 70px -16px rgba(255,45,120,.5), var(--shadow-lg); }
 .quote-icon { font-size: 3rem; font-family: Georgia, serif; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: .6; }
 .testimonial-head img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; margin: 10px auto 18px; border: 2px solid var(--line); }
 .testimonial-card p { font-size: 1.12rem; line-height: 1.7; color: var(--ink); max-width: 560px; margin: 0 auto 20px; }
@@ -450,6 +509,19 @@ section { position: relative; z-index: 1; }
 .reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.in { opacity: 1; transform: translateY(0); }
 
+.reveal-3d {
+  transform: perspective(1400px) rotateX(46deg) translateY(70px) scale(.9);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal-3d.in { transform: perspective(1400px) rotateX(0) translateY(0) scale(1); }
+
+.specialty-grid .specialty-card:nth-child(1) { transition-delay: 0s; }
+.specialty-grid .specialty-card:nth-child(2) { transition-delay: .08s; }
+.specialty-grid .specialty-card:nth-child(3) { transition-delay: .16s; }
+.specialty-grid .specialty-card:nth-child(4) { transition-delay: .24s; }
+.specialty-grid .specialty-card:nth-child(5) { transition-delay: .32s; }
+.specialty-grid .specialty-card:nth-child(6) { transition-delay: .4s; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 1080px) {
   .hero-inner, .about-inner, .contact-inner { grid-template-columns: 1fr; }
@@ -475,4 +547,8 @@ section { position: relative; z-index: 1; }
   .hero-stats { gap: 24px; }
   .gallery-grid { columns: 1 100%; }
   .testimonial-card { padding: 30px 22px; }
+  .testimonial-track { height: 400px; }
+}
+@media (max-width: 700px) {
+  .testimonial-track { height: 380px; }
 }

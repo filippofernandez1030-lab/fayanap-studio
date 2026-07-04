@@ -74,6 +74,25 @@ if (aboutWrap && aboutMedia) {
   });
 }
 
+// ===================== CURSOR SPOTLIGHT GLOW =====================
+const cursorGlow = document.getElementById('cursorGlow');
+if (cursorGlow) {
+  let glowTargetX = window.innerWidth / 2, glowTargetY = window.innerHeight / 2;
+  let glowX = glowTargetX, glowY = glowTargetY;
+  window.addEventListener('mousemove', (e) => {
+    glowTargetX = e.clientX; glowTargetY = e.clientY;
+    cursorGlow.classList.add('active');
+  }, { passive: true });
+  document.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+  function tickGlow() {
+    glowX += (glowTargetX - glowX) * 0.12;
+    glowY += (glowTargetY - glowY) * 0.12;
+    cursorGlow.style.transform = `translate(${glowX - 300}px, ${glowY - 300}px)`;
+    requestAnimationFrame(tickGlow);
+  }
+  tickGlow();
+}
+
 // ===================== MESH BACKGROUND PARALLAX =====================
 const meshBlobs = document.querySelectorAll('.mesh-bg span');
 window.addEventListener('mousemove', (e) => {
@@ -85,6 +104,25 @@ window.addEventListener('mousemove', (e) => {
     blob.style.setProperty('--py', `${y * depth}px`);
   });
 }, { passive: true });
+
+// ===================== SCROLL PARALLAX (blobs + hero cards) =====================
+const heroCardFloats = document.querySelectorAll('.hero-card-float');
+let parallaxTicking = false;
+function applyScrollParallax() {
+  const sy = window.scrollY;
+  const blobOffset = Math.min(sy * 0.06, 80);
+  meshBlobs.forEach(blob => blob.style.setProperty('--sy', `${blobOffset}px`));
+  const cardOffset = Math.min(sy * 0.03, 24);
+  heroCardFloats.forEach(card => card.style.setProperty('--sy', `${-cardOffset}px`));
+  parallaxTicking = false;
+}
+window.addEventListener('scroll', () => {
+  if (!parallaxTicking) {
+    requestAnimationFrame(applyScrollParallax);
+    parallaxTicking = true;
+  }
+}, { passive: true });
+applyScrollParallax();
 
 // ===================== GALLERY ITEM 3D TILT + GLARE =====================
 document.querySelectorAll('.gallery-item').forEach(item => {
@@ -217,17 +255,36 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') prevImage();
 });
 
-// ===================== TESTIMONIAL SLIDER =====================
-const track = document.getElementById('testimonialTrack');
+// ===================== TESTIMONIAL 3D DEPTH CAROUSEL =====================
 const dots = document.querySelectorAll('.dot');
-const slides = document.querySelectorAll('.testimonial-card');
+const slides = Array.from(document.querySelectorAll('.testimonial-card'));
 let slideIndex = 0;
 let slideTimer;
 
+function layoutTestimonials() {
+  const n = slides.length;
+  slides.forEach((el, i) => {
+    let diff = i - slideIndex;
+    if (diff > n / 2) diff -= n;
+    if (diff < -n / 2) diff += n;
+    const abs = Math.abs(diff);
+    const tx = diff * 340;
+    const tz = -abs * 200;
+    const rot = diff * -22;
+    const scale = Math.max(1 - abs * 0.14, 0.72);
+    const opacity = abs > 1 ? 0 : 1 - abs * 0.45;
+    el.style.transform = `translateX(calc(-50% + ${tx}px)) translateZ(${tz}px) rotateY(${rot}deg) scale(${scale})`;
+    el.style.opacity = opacity;
+    el.style.zIndex = 100 - abs;
+    el.style.pointerEvents = diff === 0 ? 'auto' : 'none';
+    el.classList.toggle('is-active', diff === 0);
+  });
+  dots.forEach((d, idx) => d.classList.toggle('active', idx === slideIndex));
+}
+
 function goToSlide(i) {
   slideIndex = (i + slides.length) % slides.length;
-  track.style.transform = `translateX(-${slideIndex * 100}%)`;
-  dots.forEach((d, idx) => d.classList.toggle('active', idx === slideIndex));
+  layoutTestimonials();
 }
 document.getElementById('nextTestimonial')?.addEventListener('click', () => { goToSlide(slideIndex + 1); restartAutoplay(); });
 document.getElementById('prevTestimonial')?.addEventListener('click', () => { goToSlide(slideIndex - 1); restartAutoplay(); });
@@ -238,9 +295,11 @@ function restartAutoplay() {
   slideTimer = setInterval(() => goToSlide(slideIndex + 1), 5500);
 }
 if (slides.length) {
-  track.style.display = 'flex';
-  track.style.transition = 'transform .6s cubic-bezier(.19,1,.22,1)';
+  layoutTestimonials();
   restartAutoplay();
+  const testimonialSliderEl = document.querySelector('.testimonial-slider');
+  testimonialSliderEl?.addEventListener('mouseenter', () => clearInterval(slideTimer));
+  testimonialSliderEl?.addEventListener('mouseleave', restartAutoplay);
 }
 
 // ===================== HERO PARTICLES CANVAS =====================

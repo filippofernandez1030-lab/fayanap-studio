@@ -14,6 +14,7 @@
 <body>
 
 <div class="mesh-bg"><span></span><span></span><span></span><span></span></div>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 <!-- HEADER -->
 <header class="site-header" id="siteHeader">
@@ -68,20 +69,38 @@
 
     <div class="hero-media">
       <div class="hero-ring"></div>
-      <div class="hero-stage" id="heroStage">
-        <div class="hero-photo-main">
-          <img src="images/full/p34.jpg" width="1280" height="1920" alt="Piloto celebrando con champán junto a su equipo sobre el podio de una carrera nocturna.">
-        </div>
-        <div class="hero-card-float c1" style="--r:-6deg">
-          <img src="images/full/p17.jpg" width="1920" height="1280" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras.">
-        </div>
-        <div class="hero-card-float c2" style="--r:8deg">
-          <img src="images/full/p32.jpg" width="1280" height="1920" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar.">
+      <div class="hero-idle" id="heroIdle">
+        <div class="hero-stage" id="heroStage">
+          <div class="hero-photo-main">
+            <img src="images/full/p34.jpg" width="1280" height="1920" alt="Piloto celebrando con champán junto a su equipo sobre el podio de una carrera nocturna.">
+          </div>
+          <div class="hero-card-float c1" style="--r:-6deg">
+            <img src="images/full/p17.jpg" width="1920" height="1280" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras.">
+          </div>
+          <div class="hero-card-float c2" style="--r:8deg">
+            <img src="images/full/p32.jpg" width="1280" height="1920" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar.">
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+</section>
+
+<!-- MURO DE FOTOS 3D -->
+<section class="photo-wall" aria-hidden="true">
+  <div class="wall-row">
+    <div class="wall-track">
+      <img src="images/thumb/p1.jpg" alt="" loading="lazy"><img src="images/thumb/p3.jpg" alt="" loading="lazy"><img src="images/thumb/p9.jpg" alt="" loading="lazy"><img src="images/thumb/p24.jpg" alt="" loading="lazy"><img src="images/thumb/p29.jpg" alt="" loading="lazy"><img src="images/thumb/p35.jpg" alt="" loading="lazy"><img src="images/thumb/p16.jpg" alt="" loading="lazy"><img src="images/thumb/p20.jpg" alt="" loading="lazy">
+      <img src="images/thumb/p1.jpg" alt="" loading="lazy"><img src="images/thumb/p3.jpg" alt="" loading="lazy"><img src="images/thumb/p9.jpg" alt="" loading="lazy"><img src="images/thumb/p24.jpg" alt="" loading="lazy"><img src="images/thumb/p29.jpg" alt="" loading="lazy"><img src="images/thumb/p35.jpg" alt="" loading="lazy"><img src="images/thumb/p16.jpg" alt="" loading="lazy"><img src="images/thumb/p20.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+  <div class="wall-row wall-row-alt">
+    <div class="wall-track wall-track-reverse">
+      <img src="images/thumb/p5.jpg" alt="" loading="lazy"><img src="images/thumb/p11.jpg" alt="" loading="lazy"><img src="images/thumb/p18.jpg" alt="" loading="lazy"><img src="images/thumb/p26.jpg" alt="" loading="lazy"><img src="images/thumb/p33.jpg" alt="" loading="lazy"><img src="images/thumb/p36.jpg" alt="" loading="lazy"><img src="images/thumb/p6.jpg" alt="" loading="lazy"><img src="images/thumb/p31.jpg" alt="" loading="lazy">
+      <img src="images/thumb/p5.jpg" alt="" loading="lazy"><img src="images/thumb/p11.jpg" alt="" loading="lazy"><img src="images/thumb/p18.jpg" alt="" loading="lazy"><img src="images/thumb/p26.jpg" alt="" loading="lazy"><img src="images/thumb/p33.jpg" alt="" loading="lazy"><img src="images/thumb/p36.jpg" alt="" loading="lazy"><img src="images/thumb/p6.jpg" alt="" loading="lazy"><img src="images/thumb/p31.jpg" alt="" loading="lazy">
+    </div>
+  </div>
 </section>
 
 <!-- ESPECIALIDADES -->
@@ -92,9 +111,9 @@
 
     <div class="specialty-grid">
 
-      <article class="specialty-card reveal">
+      <article class="specialty-card reveal reveal-3d">
         <div class="specialty-glow-img"><img src="images/thumb/p32.jpg" alt="Mujer con camisa blanca y lentes apoyada en la puerta de un auto frente al mar."></div>
-        <div class="specialty-icon">
+        <div class="specialty-icon" style="--i:0">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
         </div>
         <span class="specialty-num">01</span>
@@ -102,9 +121,9 @@
         <p>Sesiones personales que capturan tu esencia con luz y actitud.</p>
       </article>
 
-      <article class="specialty-card reveal">
+      <article class="specialty-card reveal reveal-3d">
         <div class="specialty-glow-img"><img src="images/thumb/p17.jpg" alt="Motociclista inclinado en una curva sobre una motocicleta naranja en una pista bordeada de palmeras."></div>
-        <div class="specialty-icon">
+        <div class="specialty-icon" style="--i:1">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg>
         </div>
         <span class="specialty-num">02</span>
@@ -112,9 +131,9 @@
         <p>Adrenalina, velocidad y acción congeladas en el instante perfecto.</p>
       </article>
 
-      <article class="specialty-card reveal">
+      <article class="specialty-card reveal reveal-3d">
         <div class="specialty-glow-img"><img src="images/thumb/p22.jpg" alt="Mujer con blazer celeste sonriendo junto al logo de un set de entrevistas."></div>
-        <div class="specialty-icon">
+        <div class="specialty-icon" style="--i:2">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
         </div>
         <span class="specialty-num">03</span>
@@ -122,9 +141,9 @@
         <p>Cobertura profesional de TV, radio, podcasts y eventos de empresa.</p>
       </article>
 
-      <article class="specialty-card reveal">
+      <article class="specialty-card reveal reveal-3d">
         <div class="specialty-glow-img"><img src="images/thumb/p12.jpg" alt="Hamburguesa gourmet apilada con carne desmenuzada y queso derretido."></div>
-        <div class="specialty-icon">
+        <div class="specialty-icon" style="--i:3">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1 1 2 2 2s2-1 2-2V2M5 11v11M19 2c-2 1-3 3-3 5v4c0 1 1 2 2 2h1v9"/></svg>
         </div>
         <span class="specialty-num">04</span>
@@ -132,9 +151,9 @@
         <p>Platos que dan hambre con solo mirarlos, listos para tu menú o redes.</p>
       </article>
 
-      <article class="specialty-card reveal">
+      <article class="specialty-card reveal reveal-3d">
         <div class="specialty-glow-img"><img src="images/thumb/p39.jpg" alt="Mujer celebrando con los brazos en alto entre una multitud en un evento."></div>
-        <div class="specialty-icon">
+        <div class="specialty-icon" style="--i:4">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5 5 0 0 0-7.1 0L12 6.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-9.3a5 5 0 0 0 0-7.1z"/></svg>
         </div>
         <span class="specialty-num">05</span>
@@ -142,9 +161,9 @@
         <p>Fiestas, celebraciones y encuentros capturados con energía real.</p>
       </article>
 
-      <article class="specialty-card reveal">
+      <article class="specialty-card reveal reveal-3d">
         <div class="specialty-glow-img"><img src="images/thumb/p30.jpg" alt="Bebé sonriente sentada dentro de una piscina inflable rodeada de globos de colores."></div>
-        <div class="specialty-icon">
+        <div class="specialty-icon" style="--i:5">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16c0-2 2-3 4-3s3 1 4 1 2-1 4-1 4 1 4 3"/><rect x="4" y="16" width="16" height="6" rx="1"/><circle cx="12" cy="7" r="3"/></svg>
         </div>
         <span class="specialty-num">06</span>
@@ -252,7 +271,7 @@
 <!-- SOBRE MÍ -->
 <section class="about" id="sobre-mi">
   <div class="container about-inner">
-    <div class="about-media reveal">
+    <div class="about-media reveal reveal-3d">
       <div class="about-photo-wrap">
         <div class="about-glow"></div>
         <img class="about-photo" src="images/misc/fabiana.jpg" width="933" height="1400" alt="La fotógrafa revisando las tomas en su cámara Canon durante un evento con público de fondo.">
@@ -260,7 +279,7 @@
       </div>
     </div>
 
-    <div class="about-copy reveal">
+    <div class="about-copy reveal reveal-3d">
       <p class="eyebrow">Sobre mí</p>
       <h2 class="section-title">Más que fotos,<br><span class="grad-text">recuerdos para siempre.</span></h2>
       <p class="about-desc">Soy Fabiana, fotógrafa de Fayanap Studio en Santo Domingo. Me apasiona capturar la esencia de cada momento — desde la adrenalina de una pista de carreras hasta la ternura de una sonrisa infantil. Cada sesión combina técnica, color y sensibilidad para contar historias auténticas que perduran.</p>
@@ -308,25 +327,25 @@
     <p class="eyebrow center">Testimonios</p>
     <h2 class="section-title center">Lo que dicen <span class="grad-text">mis clientes</span></h2>
 
-    <div class="testimonial-slider">
+    <div class="testimonial-slider reveal reveal-3d">
       <button class="slider-arrow prev" id="prevTestimonial" aria-label="Anterior">‹</button>
 
       <div class="testimonial-track" id="testimonialTrack">
-        <div class="testimonial-card reveal">
+        <div class="testimonial-card">
           <span class="quote-icon">&#8220;</span>
           <p>Las fotos superaron nuestras expectativas. Capturó cada detalle y emoción de nuestro día especial.</p>
           <div class="stars">★★★★★</div>
           <span class="testimonial-name">— María &amp; Juan</span>
         </div>
 
-        <div class="testimonial-card reveal">
+        <div class="testimonial-card">
           <span class="quote-icon">&#8220;</span>
           <p>Profesional, creativa y muy atenta. Hizo que la sesión fuera divertida y el resultado increíble.</p>
           <div class="stars">★★★★★</div>
           <span class="testimonial-name">— Ana Rodríguez</span>
         </div>
 
-        <div class="testimonial-card reveal">
+        <div class="testimonial-card">
           <span class="quote-icon">&#8220;</span>
           <p>Increíbles fotos de nuestro evento corporativo. Excelente calidad y atención al detalle.</p>
           <div class="stars">★★★★★</div>
@@ -348,7 +367,7 @@
 <!-- CONTACT CTA -->
 <section class="contact-cta">
   <div class="container contact-inner">
-    <div class="reveal">
+    <div class="reveal reveal-3d">
       <p class="eyebrow">¿Hablamos?</p>
       <h2 class="section-title">Creemos algo <span class="grad-text">increíble juntos.</span></h2>
       <p class="contact-desc">Cuéntame tu idea y armamos la sesión perfecta para tu historia — deportiva, corporativa, familiar o de evento.</p>
@@ -361,7 +380,7 @@
       </div>
     </div>
 
-    <div class="contact-card reveal">
+    <div class="contact-card reveal reveal-3d">
       <ul>
         <li>
           <span class="ci-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2.2z"/></svg></span>
