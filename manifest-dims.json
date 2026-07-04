@@ -1,0 +1,261 @@
+[
+  {
+    "num": "1",
+    "file": "p1.jpg",
+    "width": 1220,
+    "height": 1221,
+    "orientation": "portrait"
+  },
+  {
+    "num": "3",
+    "file": "p3.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "5",
+    "file": "p5.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "6",
+    "file": "p6.jpg",
+    "width": 1191,
+    "height": 1191,
+    "orientation": "square"
+  },
+  {
+    "num": "7",
+    "file": "p7.jpg",
+    "width": 1220,
+    "height": 1221,
+    "orientation": "portrait"
+  },
+  {
+    "num": "9",
+    "file": "p9.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "10",
+    "file": "p10.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "11",
+    "file": "p11.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "12",
+    "file": "p12.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "13",
+    "file": "p13.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "14",
+    "file": "p14.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "15",
+    "file": "p15.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "16",
+    "file": "p16.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "17",
+    "file": "p17.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "18",
+    "file": "p18.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "19",
+    "file": "p19.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "20",
+    "file": "p20.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "21",
+    "file": "p21.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "22",
+    "file": "p22.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "23",
+    "file": "p23.jpg",
+    "width": 1920,
+    "height": 1280,
+    "orientation": "landscape"
+  },
+  {
+    "num": "24",
+    "file": "p24.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "25",
+    "file": "p25.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "26",
+    "file": "p26.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "28",
+    "file": "p28.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "29",
+    "file": "p29.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "30",
+    "file": "p30.jpg",
+    "width": 1920,
+    "height": 1414,
+    "orientation": "landscape"
+  },
+  {
+    "num": "31",
+    "file": "p31.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "32",
+    "file": "p32.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "33",
+    "file": "p33.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "34",
+    "file": "p34.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "35",
+    "file": "p35.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "36",
+    "file": "p36.jpg",
+    "width": 1920,
+    "height": 1441,
+    "orientation": "landscape"
+  },
+  {
+    "num": "37",
+    "file": "p37.jpg",
+    "width": 1920,
+    "height": 1441,
+    "orientation": "landscape"
+  },
+  {
+    "num": "38",
+    "file": "p38.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "39",
+    "file": "p39.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "40",
+    "file": "p40.jpg",
+    "width": 1280,
+    "height": 1920,
+    "orientation": "portrait"
+  },
+  {
+    "num": "fabiana",
+    "file": "fabiana.jpg",
+    "width": 933,
+    "height": 1400,
+    "orientation": "portrait"
+  }
+]
