@@ -1,5 +1,6 @@
 // ===================== HEADER =====================
 const header = document.getElementById('siteHeader');
+const scrollTopBtn = document.getElementById('scrollTop');
 const onScroll = () => {
   header.classList.toggle('scrolled', window.scrollY > 40);
   scrollTopBtn.classList.toggle('show', window.scrollY > 500);
@@ -16,7 +17,6 @@ navToggle?.addEventListener('click', () => {
 mainNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mainNav.classList.remove('open')));
 
 // ===================== SCROLL TOP =====================
-const scrollTopBtn = document.getElementById('scrollTop');
 scrollTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 // ===================== SCROLL REVEAL =====================
@@ -74,6 +74,48 @@ if (aboutWrap && aboutMedia) {
   });
 }
 
+// ===================== MESH BACKGROUND PARALLAX =====================
+const meshBlobs = document.querySelectorAll('.mesh-bg span');
+window.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth - 0.5;
+  const y = e.clientY / window.innerHeight - 0.5;
+  meshBlobs.forEach((blob, i) => {
+    const depth = (i + 1) * 14;
+    blob.style.setProperty('--px', `${x * depth}px`);
+    blob.style.setProperty('--py', `${y * depth}px`);
+  });
+}, { passive: true });
+
+// ===================== GALLERY ITEM 3D TILT + GLARE =====================
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('mousemove', (e) => {
+    const r = item.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
+    item.style.setProperty('--mx', `${x * 100}%`);
+    item.style.setProperty('--my', `${y * 100}%`);
+    const rotY = (x - 0.5) * 16;
+    const rotX = (0.5 - y) * 16;
+    item.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px) scale(1.03)`;
+  });
+  item.addEventListener('mouseleave', () => {
+    item.style.transform = '';
+  });
+});
+
+// ===================== GALLERY SCROLL 3D REVEAL =====================
+const galleryReveal = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const delay = (Array.from(el.parentNode.children).indexOf(el) % 4) * 90;
+      setTimeout(() => el.classList.add('in'), delay);
+      galleryReveal.unobserve(el);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.gallery-item').forEach(el => galleryReveal.observe(el));
+
 // ===================== GALLERY FILTER =====================
 const filterBtns = document.querySelectorAll('.filter-btn');
 const galleryItems = document.querySelectorAll('.gallery-item');
@@ -105,36 +147,65 @@ document.querySelectorAll('[data-filter]').forEach(link => {
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
 const lightboxCounter = document.getElementById('lightboxCounter');
-let visibleItems = [];
+let lightboxList = [];
 let currentIndex = 0;
+let lightboxIsGrid = false;
 
-function refreshVisibleItems() {
-  visibleItems = Array.from(galleryItems).filter(item => !item.classList.contains('hide'));
+function getGridList() {
+  return Array.from(galleryItems).filter(item => !item.classList.contains('hide')).map(item => {
+    const img = item.querySelector('img');
+    return { full: img.dataset.full || img.src, alt: img.alt };
+  });
 }
 
-function openLightbox(item) {
-  refreshVisibleItems();
-  currentIndex = visibleItems.indexOf(item);
-  showLightboxImage();
+function openLightboxUI() {
   lightbox.classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+function openLightboxFromGrid(item) {
+  lightboxIsGrid = true;
+  const list = getGridList();
+  const img = item.querySelector('img');
+  const full = img.dataset.full || img.src;
+  currentIndex = list.findIndex(x => x.full === full);
+  lightboxList = list;
+  showLightboxImage();
+  openLightboxUI();
+}
+function openLightboxFromList(list, index) {
+  lightboxIsGrid = false;
+  lightboxList = list;
+  currentIndex = index;
+  showLightboxImage();
+  openLightboxUI();
 }
 function closeLightbox() {
   lightbox.classList.remove('open');
   document.body.style.overflow = '';
 }
 function showLightboxImage() {
-  const item = visibleItems[currentIndex];
+  if (lightboxIsGrid) lightboxList = getGridList();
+  const item = lightboxList[currentIndex];
   if (!item) return;
-  const img = item.querySelector('img');
-  lightboxImg.src = img.dataset.full || img.src;
-  lightboxImg.alt = img.alt;
-  lightboxCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
+  lightboxImg.classList.remove('pop');
+  void lightboxImg.offsetWidth;
+  lightboxImg.classList.add('pop');
+  lightboxImg.src = item.full;
+  lightboxImg.alt = item.alt;
+  lightboxCounter.textContent = `${currentIndex + 1} / ${lightboxList.length}`;
 }
-function nextImage() { refreshVisibleItems(); currentIndex = (currentIndex + 1) % visibleItems.length; showLightboxImage(); }
-function prevImage() { refreshVisibleItems(); currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; showLightboxImage(); }
+function nextImage() {
+  if (lightboxIsGrid) lightboxList = getGridList();
+  currentIndex = (currentIndex + 1) % lightboxList.length;
+  showLightboxImage();
+}
+function prevImage() {
+  if (lightboxIsGrid) lightboxList = getGridList();
+  currentIndex = (currentIndex - 1 + lightboxList.length) % lightboxList.length;
+  showLightboxImage();
+}
 
-galleryItems.forEach(item => item.addEventListener('click', () => openLightbox(item)));
+galleryItems.forEach(item => item.addEventListener('click', () => openLightboxFromGrid(item)));
 document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
 document.getElementById('lightboxNext')?.addEventListener('click', nextImage);
 document.getElementById('lightboxPrev')?.addEventListener('click', prevImage);
@@ -212,6 +283,77 @@ if (canvas) {
   }
   window.addEventListener('resize', () => { resize(); initParticles(); });
   resize(); initParticles(); tick();
+}
+
+// ===================== 3D COVERFLOW =====================
+const cfTrack = document.getElementById('cfTrack');
+if (cfTrack) {
+  const cfItems = Array.from(cfTrack.querySelectorAll('.cf-item'));
+  const cfList = cfItems.map(el => ({ full: el.dataset.full, alt: el.dataset.alt }));
+  let cfActive = 0;
+  let cfTimer;
+
+  function cfLayout() {
+    const n = cfItems.length;
+    cfItems.forEach((el, i) => {
+      let diff = i - cfActive;
+      if (diff > n / 2) diff -= n;
+      if (diff < -n / 2) diff += n;
+      const abs = Math.abs(diff);
+      const tx = diff * 132;
+      const tz = -abs * 150;
+      const rot = diff * -34;
+      const scale = Math.max(1 - abs * 0.13, 0.55);
+      const opacity = abs > 3 ? 0 : Math.max(1 - abs * 0.3, 0);
+      el.style.transform = `translate3d(${tx}px, 0, ${tz}px) rotateY(${rot}deg) scale(${scale})`;
+      el.style.opacity = opacity;
+      el.style.zIndex = 100 - abs;
+      el.style.pointerEvents = abs > 3 ? 'none' : 'auto';
+      el.classList.toggle('is-active', diff === 0);
+    });
+  }
+
+  function cfGoTo(i) {
+    const n = cfItems.length;
+    cfActive = (i + n) % n;
+    cfLayout();
+  }
+
+  function cfRestartAutoplay() {
+    clearInterval(cfTimer);
+    cfTimer = setInterval(() => cfGoTo(cfActive + 1), 3600);
+  }
+
+  cfItems.forEach((el, i) => {
+    el.addEventListener('click', () => {
+      if (i === cfActive) {
+        openLightboxFromList(cfList, i);
+      } else {
+        cfGoTo(i);
+        cfRestartAutoplay();
+      }
+    });
+  });
+  document.getElementById('cfPrev')?.addEventListener('click', () => { cfGoTo(cfActive - 1); cfRestartAutoplay(); });
+  document.getElementById('cfNext')?.addEventListener('click', () => { cfGoTo(cfActive + 1); cfRestartAutoplay(); });
+
+  // touch / drag swipe
+  let dragStartX = null;
+  cfTrack.addEventListener('pointerdown', (e) => { dragStartX = e.clientX; });
+  cfTrack.addEventListener('pointerup', (e) => {
+    if (dragStartX === null) return;
+    const delta = e.clientX - dragStartX;
+    if (delta > 40) { cfGoTo(cfActive - 1); cfRestartAutoplay(); }
+    else if (delta < -40) { cfGoTo(cfActive + 1); cfRestartAutoplay(); }
+    dragStartX = null;
+  });
+
+  const coverflowEl = document.getElementById('coverflow');
+  coverflowEl?.addEventListener('mouseenter', () => clearInterval(cfTimer));
+  coverflowEl?.addEventListener('mouseleave', cfRestartAutoplay);
+
+  cfLayout();
+  cfRestartAutoplay();
 }
 
 // ===================== ACTIVE NAV ON SCROLL =====================
